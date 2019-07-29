@@ -1,16 +1,19 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(x, y, s) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+    this.x = x;
+    this.y = y;
+    this.speed = s;
 };
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
+    this.x += this.speed * dt;
+
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
@@ -20,6 +23,18 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+let Player = function(x, y) {
+    this.sprite = 'images/char-cat-girl.png';
+    this.x = 303;
+    this.y = 404;
+    this.x_movement = 101;
+    this.y_movement = 83;
+}
+
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
 
 // Now write your own player class
 // This class requires an update(), render() and
