@@ -22,11 +22,24 @@ Enemy.prototype.update = function(dt) {
         this.speed = randomSpeed();
     }
 
-    // Create Enemy hitboxes
-    // Input: player position, Enemy position, Enemy size 
+    // hit() method handles player enemy interaction.
+    // Input: player x & y positions, and the space enemys are inhabiting.
+    // Output: if player/enemy positions overlap, run resetGame();
+    const   enemyXLeft = this.x - 70,
+            enemyXRight = this.x + 70,
+            enemyYTop = this.y - 60,
+            enemyYBottom = this.y + 60;
 
-
+    if (
+    player.x >= enemyXLeft && 
+    player.x <= enemyXRight &&
+    player.y >= enemyYTop && 
+    player.y <= enemyYBottom
+    ){
+    player.resetGame();
+    }
 };
+
 
 // render() method shows enemy sprite
 Enemy.prototype.render = function() {
@@ -56,7 +69,7 @@ Player.prototype.update = function(dt) {
 // reset() method
 // Input: Goal reached, or enemy touched.
 // Output: Player sprite moves back to the start.
-Player.prototype.reset = function() {
+Player.prototype.resetGame = function() {
     this.x = 303;
     this.y = 404;
 };
@@ -77,7 +90,7 @@ Player.prototype.handleInput = function(direction) {
         case 'up':
             if (this.y <= 50) {
                 crossed++;
-                this.reset();
+                this.resetGame();
             }
             this.y >= this.y_mov ? this.y -= this.y_mov : this.y += 0;
             break;
@@ -102,7 +115,7 @@ window.player = new Player();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
-document.addEventListener('keyup', function(e) {
+document.addEventListener('keydown', function(e) {
     var allowedKeys = {
         37: 'left',
         38: 'up',
