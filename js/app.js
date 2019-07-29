@@ -10,14 +10,16 @@ const Enemy = function(x, y, s) {
 // Input: dt, a time delta between ticks
 // Output: randomized enemy speed amount 
 // Caveat: when an enemy reaches the right side of the canvas, or touches the player, they must reset with a randomized speed
-const randomSpeed = Math.floor(Math.random() * 4 + 1);
+const randomSpeed = function () {
+    return Math.floor(Math.random() * 4 + 1) * 120;
+};
 
 Enemy.prototype.update = function(dt) {
     this.x += this.speed * dt;
 
     if (this.x > 707) {
         this.x = -100;
-        this.speed = 10 * randomSpeed;
+        this.speed = randomSpeed();
     }
 
     // Create Enemy hitboxes
@@ -33,23 +35,23 @@ Enemy.prototype.render = function() {
 
 // Create the player class
 const Player = function(x, y) {
-    this.sprite = 'images/char-cat-girl.png';
+    this.sprite = 'images/char-horn-girl.png';
     this.x = 303;
     this.y = 404;
     this.x_mov = 101;
     this.y_mov = 83;
-}
+};
 
 // render() method shows player sprite
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 // update() method
 Player.prototype.update = function(dt) {
 
 
-}
+};
 
 // reset() method
 // Input: Goal reached, or enemy touched.
@@ -57,7 +59,7 @@ Player.prototype.update = function(dt) {
 Player.prototype.reset = function() {
     this.x = 303;
     this.y = 404;
-}
+};
 
 
 // handleInput() method 
@@ -77,6 +79,7 @@ Player.prototype.handleInput = function(direction) {
                 crossed++;
                 this.reset();
             }
+            this.y >= this.y_mov ? this.y -= this.y_mov : this.y += 0;
             break;
         case 'down':
             this.y <= (this.y_mov * 4) ? this.y += this.y_mov : this.y += 0;
@@ -88,10 +91,10 @@ Player.prototype.handleInput = function(direction) {
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-let enemy0 = new Enemy(-80, 60 + 80 * 0, randomSpeed);
-let enemy1 = new Enemy(-80, 60 + 80 * 1, randomSpeed);
-let enemy2 = new Enemy(-80, 60 + 80 * 2, randomSpeed);
-window.allEnemies = [enemy1, enemy2, enemy3];
+let enemy0 = new Enemy(-80, 60 + 80 * 0, randomSpeed());
+let enemy1 = new Enemy(-80, 60 + 80 * 1, randomSpeed());
+let enemy2 = new Enemy(-80, 60 + 80 * 2, randomSpeed());
+window.allEnemies = [enemy0, enemy1, enemy2];
 
 // Place the player object in a variable called player
 window.player = new Player();
