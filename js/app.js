@@ -88,11 +88,10 @@ Player.prototype.handleInput = function(direction) {
             this.x <= (this.x_mov * 5) ? this.x += this.x_mov : this.x += 0;
             break;
         case 'up':
-            if (this.y <= 50) {
-                crossed++;
+            this.y + 20 >= this.y_mov ? this.y -= this.y_mov : this.y += 0;
+            if (this.y <= 71) {
                 this.resetGame();
             }
-            this.y >= this.y_mov ? this.y -= this.y_mov : this.y += 0;
             break;
         case 'down':
             this.y <= (this.y_mov * 4) ? this.y += this.y_mov : this.y += 0;
