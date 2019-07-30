@@ -53,7 +53,7 @@ const Player = function(x, y) {
     this.y = 404;
     this.x_mov = 101;
     this.y_mov = 83;
-};
+    };
 
 // render() method shows player sprite
 Player.prototype.render = function() {
