@@ -1,6 +1,7 @@
 // Create the Enemy class
-const Enemy = function(x, y, s) {
-  this.sprite = "images/enemy-bug.png";
+let Enemy = function(x, y, s) {
+    this.sprites = ["images/enemy-bug.png", "images/bats.png", "images/slime.png", "images/spiders.png"]
+  this.sprite = this.sprites[Math.floor(Math.random() * this.sprites.length)];
   this.x = x;
   this.y = y;
   this.speed = s;
@@ -11,7 +12,7 @@ const Enemy = function(x, y, s) {
 // Output: randomized enemy speed amount
 // Caveat: when an enemy reaches the right side of the canvas, or the game is reset, they must begin with a randomized speed
 const randomSpeed = function(x) {
-  return Math.floor(Math.random() * 4 + x + 1) * 120;
+  return Math.floor(Math.random() * 2 + x + 1) * 30;
 };
 
 Enemy.prototype.update = function(dt) {
@@ -146,7 +147,7 @@ Player.prototype.handleInput = function(direction) {
     case "up":
       this.y + 20 >= this.y_mov ? (this.y -= this.y_mov) : (this.y += 0);
       if (this.y <= 71) {
-        this.score += 2;
+        this.score += 5;
         this.queryScore.textContent = this.score;
         this.resetGame();
       }
@@ -163,10 +164,18 @@ let player = new Player();
 window.player = player;
 
 // Place all enemy objects in an array called allEnemies
-let enemy0 = new Enemy(-80, 60 + 80 * 0, randomSpeed(player.score));
-let enemy1 = new Enemy(-80, 60 + 80 * 1, randomSpeed(player.score));
-let enemy2 = new Enemy(-80, 60 + 80 * 2, randomSpeed(player.score));
-window.allEnemies = [enemy0, enemy1, enemy2];
+let randomRow = x => Math.floor(Math.random() * 3);
+let randomStart = x => Math.floor(Math.random() * -800);
+
+let randomEnemy = x => new Enemy(randomStart(), 60 + 80 * randomRow(), randomSpeed(player.score));
+
+// let enemy0 = new Enemy(-80, 60 + 80 * 0, randomSpeed(player.score));
+// let enemy1 = new Enemy(-80, 60 + 80 * 1, randomSpeed(player.score));
+// let enemy2 = new Enemy(-80, 60 + 80 * 2, randomSpeed(player.score));
+// let enemy3 = new Enemy(-80, 60 + 80 * 2, randomSpeed(player.score));
+// let enemy4 = new Enemy(-80, 60 + 80 * 1, randomSpeed(player.score));
+// let enemy5 = new Enemy(-80, 60 + 80 * 2, randomSpeed(player.score));
+window.allEnemies = [randomEnemy(), randomEnemy(), randomEnemy(), randomEnemy(), randomEnemy(), randomEnemy()];
 
 // Player.handleInput() method
 // Input: Arrow key presses.
