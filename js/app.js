@@ -11,7 +11,6 @@ const Enemy = function(x, y, s) {
 // Output: randomized enemy speed amount
 // Caveat: when an enemy reaches the right side of the canvas, or the game is reset, they must begin with a randomized speed
 const randomSpeed = function(x) {
-  console.log(`what is ${x}?`)
   return Math.floor(Math.random() * 4 + x + 1) * 120;
 };
 
@@ -38,6 +37,7 @@ Enemy.prototype.update = function(dt) {
     player.y <= enemyYBottom
   ) {
     player.removeHeart();
+    player.resetGame();
   }
 };
 
@@ -78,7 +78,41 @@ Player.prototype.resetGame = function() {
 // Input: triggered by removeHeart() method
 // Output: Lose modal appears.
 Player.prototype.youLose = function() {
-  this.resetGame();
+    const queryModalContainer = document.getElementById('modal-container');
+    queryModalContainer.classList.remove('out');
+      queryModalContainer.classList.remove('six');
+
+
+  queryModalContainer.classList.add('six');
+
+  document.body.classList.add('modal-active');
+
+  queryModalContainer.onclick = function () {
+
+    player.addHeart(2);
+
+    player.score = 0;
+
+    player.queryScore.textContent = player.score;
+
+    queryModalContainer.classList.add('out');
+
+    document.body.classList.toggle('modal-active');
+
+  }
+}
+
+// addHeart() method
+// Input: game restart, or extra life.
+// Output: Restores one heart icon.
+Player.prototype.addHeart = function(x) {
+    this.lives += x + 1;
+    for (i = 0; i < x; i++) {
+        let queryEmptyHeart = document.querySelectorAll(".fa-heart-o");
+        queryEmptyHeart = Array.from(queryEmptyHeart).slice(0)[0];
+        queryEmptyHeart.classList.toggle("fa-heart-o");
+        queryEmptyHeart.classList.toggle("fa-heart");
+    }
 }
 
 // removeHeart() method
@@ -86,14 +120,14 @@ Player.prototype.youLose = function() {
 // Output: player.lives is lowered by 1, player heart gui is updated to reflect this. If player.lives is 0, youLose(); is triggered.
 Player.prototype.removeHeart = function() {
   this.lives -= 1;
-  if (this.lives == 0) {
-    return youLose();
-  }
+  if (this.lives == 0 || document.querySelectorAll(".fa-heart") == null) {
+    return this.youLose();
+  } else {
   let queryHeart = document.querySelectorAll(".fa-heart");
   queryHeart = Array.from(queryHeart).slice(-1)[0];
   queryHeart.classList.toggle("fa-heart");
   queryHeart.classList.toggle("fa-heart-o");
-  this.resetGame();
+  }
 }
 
 // handleInput() method
@@ -137,7 +171,7 @@ window.allEnemies = [enemy0, enemy1, enemy2];
 // Player.handleInput() method
 // Input: Arrow key presses.
 // Output: key names that can be attached to other methods.
-document.addEventListener("keydown", function(e) {
+document.addEventListener("keyup", function(e) {
   var allowedKeys = {
     37: "left",
     38: "up",
