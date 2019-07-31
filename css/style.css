@@ -1,8 +1,15 @@
+html {
+	height: 100%;
+}
+
 body {
-    text-align: center;
-    padding-top: 150px;
-    background: url("../images/bg.jpg");
-    font-family: "helvetica", "arial", "sans-serif";
+  text-align: center;
+  min-height: 100%;
+  padding-top: 50px;
+  background-image: url("../images/bg.jpg");
+	background-repeat: no-repeat;
+	background-size:  cover;
+  font-family: "helvetica", "arial", "sans-serif";
 }
 
 .score-panel {
@@ -36,4 +43,13 @@ body {
 	letter-spacing: 0;
 	border-bottom: 1px solid #fff;
 	min-width: 50px;
+}
+
+canvas {
+	position: absolute;
+	top: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	box-shadow: -30px 60px 50px #000000ee, 0px 100px 80px #00000077, 30px 60px 50px #000000ee;
+	background-image: linear-gradient(#00000000, #000000);
 }

@@ -9,9 +9,10 @@ const Enemy = function(x, y, s) {
 // update() method handles Enemy screen movement and location.
 // Input: dt, a time delta between ticks
 // Output: randomized enemy speed amount
-// Caveat: when an enemy reaches the right side of the canvas, or touches the player, they must reset with a randomized speed
-const randomSpeed = function() {
-  return Math.floor(Math.random() * 4 + 1) * 120;
+// Caveat: when an enemy reaches the right side of the canvas, or the game is reset, they must begin with a randomized speed
+const randomSpeed = function(x) {
+  console.log(`what is ${x}?`)
+  return Math.floor(Math.random() * 4 + x + 1) * 120;
 };
 
 Enemy.prototype.update = function(dt) {
@@ -19,7 +20,7 @@ Enemy.prototype.update = function(dt) {
 
   if (this.x > 707) {
     this.x = -100;
-    this.speed = randomSpeed() * (player.score + 1);
+    this.speed = randomSpeed(player.score);
   }
 
   // Player/Enemy interaction
@@ -36,7 +37,7 @@ Enemy.prototype.update = function(dt) {
     player.y >= enemyYTop &&
     player.y <= enemyYBottom
   ) {
-    player.resetGame();
+    player.removeHeart();
   }
 };
 
@@ -72,10 +73,27 @@ Player.prototype.resetGame = function() {
   this.y = 404;
 };
 
+// removeHeart() method
+// Input: Touching enemy triggers method.
+// Output: player.lives is lowered by 1, player heart gui is updated to reflect this. If player.lives is 0, a lose state is triggered.
+Player.prototype.removeHeart = function() {
+  this.lives -= 1;
+  if (this.lives == 0) {
+    return youLose();
+  }
+  let queryHeart = document.querySelectorAll(".fa-heart");
+  queryHeart = Array.from(queryHeart).slice(-1)[0];
+  queryHeart.classList.toggle("fa-heart");
+  queryHeart.classList.toggle("fa-heart-o");
+  this.resetGame();
+}
+
 // handleInput() method
 // Input: key presses from the EventListener.
 // Output: Player sprite moves in each key's cardinal direction.
 // Caveat: Player sprite can't move out of bounds.
+// When a star is removed, grab the last solid star icon class from the ul and change it to the outlined version
+
 Player.prototype.handleInput = function(direction) {
   switch (direction) {
     case "left":
@@ -87,7 +105,7 @@ Player.prototype.handleInput = function(direction) {
     case "up":
       this.y + 20 >= this.y_mov ? (this.y -= this.y_mov) : (this.y += 0);
       if (this.y <= 71) {
-        this.score += 20;
+        this.score += 2;
         this.resetGame();
       }
       break;
@@ -98,14 +116,15 @@ Player.prototype.handleInput = function(direction) {
 };
 
 // Object Instatiation
-// Place all enemy objects in an array called allEnemies
-let enemy0 = new Enemy(-80, 60 + 80 * 0, randomSpeed());
-let enemy1 = new Enemy(-80, 60 + 80 * 1, randomSpeed());
-let enemy2 = new Enemy(-80, 60 + 80 * 2, randomSpeed());
-window.allEnemies = [enemy0, enemy1, enemy2];
-
 // Place the player object in a variable called player
-window.player = new Player();
+let player = new Player();
+window.player = player;
+
+// Place all enemy objects in an array called allEnemies
+let enemy0 = new Enemy(-80, 60 + 80 * 0, randomSpeed(player.score));
+let enemy1 = new Enemy(-80, 60 + 80 * 1, randomSpeed(player.score));
+let enemy2 = new Enemy(-80, 60 + 80 * 2, randomSpeed(player.score));
+window.allEnemies = [enemy0, enemy1, enemy2];
 
 // Player.handleInput() method
 // Input: Arrow key presses.
