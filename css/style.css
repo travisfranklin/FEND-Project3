@@ -35,7 +35,7 @@ body {
     display: inline-block;
 }
 
-.score-panel .score {
+.score-panel #score {
 	float: right;
 	font-family: monospace;
 	font-size: 16px;

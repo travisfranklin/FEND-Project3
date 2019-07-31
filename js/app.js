@@ -55,6 +55,7 @@ const Player = function(x, y) {
   this.y_mov = 83;
   this.score = 0;
   this.lives = 3;
+  this.queryScore = document.getElementById("score");
 };
 
 // render() method displays player sprite
@@ -73,9 +74,16 @@ Player.prototype.resetGame = function() {
   this.y = 404;
 };
 
+// youLose() method
+// Input: triggered by removeHeart() method
+// Output: Lose modal appears.
+Player.prototype.youLose = function() {
+  this.resetGame();
+}
+
 // removeHeart() method
 // Input: Touching enemy triggers method.
-// Output: player.lives is lowered by 1, player heart gui is updated to reflect this. If player.lives is 0, a lose state is triggered.
+// Output: player.lives is lowered by 1, player heart gui is updated to reflect this. If player.lives is 0, youLose(); is triggered.
 Player.prototype.removeHeart = function() {
   this.lives -= 1;
   if (this.lives == 0) {
@@ -93,7 +101,6 @@ Player.prototype.removeHeart = function() {
 // Output: Player sprite moves in each key's cardinal direction.
 // Caveat: Player sprite can't move out of bounds.
 // When a star is removed, grab the last solid star icon class from the ul and change it to the outlined version
-
 Player.prototype.handleInput = function(direction) {
   switch (direction) {
     case "left":
@@ -106,6 +113,7 @@ Player.prototype.handleInput = function(direction) {
       this.y + 20 >= this.y_mov ? (this.y -= this.y_mov) : (this.y += 0);
       if (this.y <= 71) {
         this.score += 2;
+        this.queryScore.textContent = this.score;
         this.resetGame();
       }
       break;
