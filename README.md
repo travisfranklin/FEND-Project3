@@ -8,6 +8,8 @@ Your goal is to undertake a journey to the top of the gameboard. You can navigat
 
 When you make a successful journey, your score will increase and you'll be transported back to the start to try again. As your score increases, the creatures will become more difficult to evade.
 
+As any wanderer knows, every journey has an end. Yours will end when your vitality reaches zero. But take heart--see how far your travels will take you before your reach the road's end.
+
 ## Sources
 All imagery used has been edited from their original design to better fit the medium.
 
