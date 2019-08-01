@@ -1,6 +1,6 @@
 html {
   height: 100%;
-  box-sizing:border-box;
+  box-sizing: border-box;
 }
 
 body {
@@ -9,11 +9,12 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   font-family: helvetica neue, helvetica, arial, sans-serif;
-  font-weight:200;
+  font-weight: 200;
 }
 
-html.modal-active, body.modal-active {
-	 overflow: hidden;
+html.modal-active,
+body.modal-active {
+  overflow: hidden;
 }
 
 canvas {
