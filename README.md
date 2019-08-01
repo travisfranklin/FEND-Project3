@@ -1,20 +1,21 @@
 # Classic Arcade Game Clone Project
 
-## Table of Contents
+## How to play
 
-- [Instructions](#instructions)
-- [Contributing](#contributing)
+You can access the game [here](https://travisfranklin.github.io/FEND-Project3/).  
 
-## Instructions
+Your goal is to undertake a journey to the top of the gameboard. You can navigate using your arrow keys. Beware, you must pass many scary creatures on your way. Take heed not to touch them, or your precious vitality will be lowered. Touch one of these creatures three times and you surely shall perish.
 
-Use this [rubric](https://review.udacity.com/#!/rubrics/15/view) for self-checking your submission.
+When you make a successful journey, your score will increase and you'll be transported back to the start to try again. As your score increases, the creatures will become more difficult to evade.
 
-Make sure the functions you write are **object-oriented** - either class functions (like `Player` and `Enemy`) or class prototype functions such as `Enemy.prototype.checkCollisions`. Also make sure that the keyword `this` is used appropriately within your class and class prototype functions to refer to the object the function is called upon.
+## Sources
+All imagery used has been edited from their original design to better fit the medium.
 
-Your **README.md** file should be updated with instructions on both how to 1. Run and 2. Play your arcade game.
-
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
-
-## Contributing
+#### Image/icon assets: 
+Font Awesome (icons)
+Heart Machine's Hyper Light Drifter  (player and enemies)
+Freepik.com (marble texture)
+Bitgem 3D (stone textures)
+Udacity (Floor block sprites)
 
 This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
