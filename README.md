@@ -10,7 +10,7 @@ You can access the game [here](https://travisfranklin.github.io/FEND-Project3/).
 - Touch one of these foul creatures three times and you surely shall perish.
 - When you make a successful journey, your score will increase and you'll be transported back to the start to undertake another journey.  
 - As your score increases, the creatures will become more difficult to evade.  
-- As any wanderer knows, every journey has an end. Yours will end when your vitality reaches zero. 
+- As any wanderer knows, every journey has an end. Yours will end when your vitality reaches zero. The higher your score, the more journeys you experienced. That is your final goal.  
 
 This may sound bleak, but take heart--see how far your travels will take you before your reach the road's end.
 
